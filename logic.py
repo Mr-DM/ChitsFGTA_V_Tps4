@@ -13,7 +13,6 @@ def gen_markup():
     markup.add(InlineKeyboardButton("оружие и патроны 🔫", callback_data="gun"),
             InlineKeyboardButton("транспорт и перемещение 🚘", callback_data="cars"),
             InlineKeyboardButton("персонажей 👦", callback_data="Skills"))
-
     markup.add(InlineKeyboardButton("погоду 🌧️", callback_data="weather"),
             InlineKeyboardButton("другое 🛸", callback_data="other"))
 
@@ -42,35 +41,30 @@ def gen_markup_Cars():
     
     return markup
 
-def gen_markup_3():
+def gen_markup_Skills():
     markup = InlineKeyboardMarkup()
     markup.row_width = 3
     markup.add(InlineKeyboardButton("Режим пьяницы", callback_data="drunkard"),
             InlineKeyboardButton("Лунная гравитация", callback_data="gravity"),
-            InlineKeyboardButton("Быстрый бег", callback_data="fast run"))
+            InlineKeyboardButton("Быстрый бег", callback_data="fast_run"))
     markup.add(InlineKeyboardButton("Неуязвимость", callback_data="invulnerability"),
-            InlineKeyboardButton("Суперпрыжок", callback_data="super jump"))
+            InlineKeyboardButton("Суперпрыжок", callback_data="super_jump"))
     
     return markup
-
-def gen_markup_4():
-    
+def gen_markup_Weather():
     markup = InlineKeyboardMarkup()
     markup.row_width = 3
-    markup.add(InlineKeyboardButton("🥟 Подкогыльо", callback_data="cb_podkogylyo"),
-            InlineKeyboardButton("🥟 Чучвара ", callback_data="cb_choochvara"),
-            InlineKeyboardButton("🥟 Дюшбара ", callback_data="cb_dyshbara"))
-    markup.add(InlineKeyboardButton("🥟 Креплах ", callback_data="cb_kreplah"),
-            InlineKeyboardButton("🥟 Манду", callback_data="cb_mandoo"))
-    
+    markup.add(InlineKeyboardButton("Скользящие машины", callback_data="Sliding_cars"),
+            InlineKeyboardButton("Дождливая погода", callback_data="rainy_weather"))
     return markup
 
-def gen_markup_5():
+def gen_markup_Other():
     markup = InlineKeyboardMarkup()
     markup.row_width = 3
     markup.add(InlineKeyboardButton("Понизить уровень розыска", callback_data="PoliceM"),
                InlineKeyboardButton("Увеличить уровень розыска", callback_data="PoliceP"),)
     markup.add(InlineKeyboardButton("Замедленное время", callback_data="SlowTime"),)
+    return markup
 
 
 @bot.message_handler(commands=['start'])
@@ -111,59 +105,59 @@ def submenu_callback_query(call):
     elif call.data == "FirePatrons":
         bot.send_message(call.message.chat.id, gun_FirePatrons)
 
-@bot.callback_query_handler(func=lambda call: call.data in ["cb_szaosz","cb_gedza" , "cb_dimSams", "cb_momo", "cb_votons"])
+@bot.callback_query_handler(func=lambda call: call.data in ["comet", "sanchez", "Rapid_GT", "Sportbike", "Better_Dominic"])
 def submenu_callback_query(call):
-    if call.data == "cb_szaosz":
-        bot.send_photo(call.message.chat.id, open('img/szasz.jpg', 'rb'), text_szaosz)
-    elif call.data == "cb_gedza":
-        bot.send_photo(call.message.chat.id, open('img/gedza.jpg', 'rb'), text_gedza)
-    elif call.data == "cb_dimSams":
-        bot.send_photo(call.message.chat.id, open('img/dimSams.jpg', 'rb'), text_dimSams)
-    elif call.data == "cb_momo":
-        bot.send_photo(call.message.chat.id, open('img/momo.jpg', 'rb'), text_momo)
-    elif call.data == "cb_votons":
-        bot.send_photo(call.message.chat.id, open('img/votons.jpg', 'rb'), text_votons)
+    if call.data == "comet":
+        bot.send_message(call.message.chat.id, car_Comet)
+    elif call.data == "sanchez":
+        bot.send_message(call.message.chat.id, car_sanchez)
+    elif call.data == "Rapid_GT":
+        bot.send_message(call.message.chat.id, car_Rapid_GT)
+    elif call.data == "Sportbike":
+        bot.send_message(call.message.chat.id, car_PKJ)
+    elif call.data == "Better_Dominic":
+        bot.send_message(call.message.chat.id, car_Better_Dominic)
 
-@bot.callback_query_handler(func=lambda call: call.data in ["cb_baozzi", "cb_koondymy", "cb_koorze", "cb_boraki", "cb_ravioli"])
+@bot.callback_query_handler(func=lambda call: call.data in ["drunkard", "gravity", "fast run", "invulnerability", "super_jump"])
 def submenu_callback_query(call):
-    if call.data == "cb_baozzi":
-        bot.send_photo(call.message.chat.id, open('img/baozzi.jpg', 'rb'), text_baozzi)
-    elif call.data == "cb_koondymy":
-        bot.send_photo(call.message.chat.id, open('img/koondymy.jpg', 'rb'), text_koondymy)
-    elif call.data == "cb_koorze":
-        bot.send_photo(call.message.chat.id, open('img/koorze.jpg', 'rb'), text_koorze)
-    elif call.data == "cb_boraki":
-        bot.send_photo(call.message.chat.id, open('img/boraki.jpg', 'rb'), text_boraki)
-    elif call.data == "cb_ravioli":
-        bot.send_photo(call.message.chat.id, open('img/ravioli.jpg', 'rb'), text_ravioli)
+    if call.data == "drunkard":
+        bot.send_message(call.message.chat.id, skills_drunkard)
+    elif call.data == "gravity":
+        bot.send_message(call.message.chat.id, skills_gravity)
+    elif call.data == "fast run":
+        bot.send_message(call.message.chat.id, skills_fastrun)
+    elif call.data == "invulnerability":
+        bot.send_message(call.message.chat.id, skills_invulnerability)
+    elif call.data == "super_jump":
+        bot.send_message(call.message.chat.id, skills_superjump)
 
-@bot.callback_query_handler(func=lambda call: call.data in ["cb_podkogylyo", "cb_choochvara", "cb_dyshbara", "cb_kreplah", "cb_mandoo"])
+@bot.callback_query_handler(func=lambda call: call.data in ["Sliding_cars", "rainy_weather"])
 def submenu_callback_query(call):
-    if call.data == "cb_podkogylyo":
-        bot.send_photo(call.message.chat.id, open("img/podkogylyo.jpg", "rb"), text_podkogylyo)
-    elif call.data == "cb_choochvara":
-        bot.send_photo(call.message.chat.id, open("img/choochvara.jpg", "rb"), text_choochvara)
-    elif call.data == "cb_dyshbara":
-        bot.send_photo(call.message.chat.id, open("img/dyshbara.jpg", "rb"), text_dyshbara )
-    elif call.data == "cb_kreplah":
-        bot.send_photo(call.message.chat.id, open("img/kreplah.jpg", "rb"), text_kreplah)
-    elif call.data == "cb_mandoo":
-        bot.send_photo(call.message.chat.id, open("img/mandoo.jpg", "rb"), text_mandoo)
-        
+    if call.data == "Sliding_cars":
+        bot.send_message(call.message.chat.id, weather_Sliding)
+    elif call.data == "rainy_weather":
+        bot.send_message(call.message.chat.id, weather_rainy)
+
+@bot.callback_query_handler(func=lambda call: call.data in ["PoliceM", "PoliceP", "SlowTime"])
+def submenu_callback_query(call):
+    if call.data == "PoliceM":
+        bot.send_message(call.message.chat.id, other_PoliceM)
+    elif call.data == "PoliceP":
+        bot.send_message(call.message.chat.id, other_PoliceP)
+    elif call.data == "SlowTime":
+        bot.send_message(call.message.chat.id, other_SlowTime)
 
 # First menu action
 def first(message):
-    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_Guns())
-
+    bot.send_message(message.chat.id, "Список Читов", reply_markup=gen_markup_Guns())
 def second(message):
-    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_Cars())
-
+    bot.send_message(message.chat.id, "Список Читов", reply_markup=gen_markup_Cars())
 def third(message):
-    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_3())
+    bot.send_message(message.chat.id, "Список Читов", reply_markup=gen_markup_Skills())
 def fourd(message):
-    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_4())
+    bot.send_message(message.chat.id, "Список Читов", reply_markup=gen_markup_Weather())
 def fiveth(message):
-    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_5())
+    bot.send_message(message.chat.id, "Список Читов", reply_markup=gen_markup_Other())
 bot.infinity_polling()
 
 
