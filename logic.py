@@ -12,7 +12,7 @@ def gen_markup():
     markup.row_width = 3
     markup.add(InlineKeyboardButton("оружие и патроны 🔫", callback_data="gun"),
             InlineKeyboardButton("транспорт и перемещение 🚘", callback_data="cars"),
-            InlineKeyboardButton("персонажей 👦", callback_data="skins"))
+            InlineKeyboardButton("персонажей 👦", callback_data="Skills"))
 
     markup.add(InlineKeyboardButton("погоду 🌧️", callback_data="weather"),
             InlineKeyboardButton("другое 🛸", callback_data="other"))
@@ -21,7 +21,7 @@ def gen_markup():
 
 
 
-def gen_markup_1():
+def gen_markup_Guns():
     markup = InlineKeyboardMarkup()
     markup.row_width = 3
     markup.add(InlineKeyboardButton("Всё оружие", callback_data="Allguns"),
@@ -31,26 +31,25 @@ def gen_markup_1():
     
     return markup
 
-def gen_markup_2():
+def gen_markup_Cars():
     markup = InlineKeyboardMarkup()
     markup.row_width = 3
     markup.add(InlineKeyboardButton("Вызов comet", callback_data="comet"),
             InlineKeyboardButton("мотоцикл для бездорожья", callback_data="sanchez"),
             InlineKeyboardButton("Спроткар", callback_data="Rapid_GT"))
-    markup.add(InlineKeyboardButton("спортивный мотоцикл", callback_data=" ПКJ-600"),
-            InlineKeyboardButton("маслкар", callback_data="Duke O’Death Car"))
+    markup.add(InlineKeyboardButton("спортивный мотоцикл", callback_data="Sportbike"),
+            InlineKeyboardButton("маслкар", callback_data="Better_Dominic"),)
     
     return markup
 
 def gen_markup_3():
-
     markup = InlineKeyboardMarkup()
     markup.row_width = 3
-    markup.add(InlineKeyboardButton("🥟 Баоцзы", callback_data="cb_baozzi"),
-            InlineKeyboardButton("🥟 Кундюмы ", callback_data="cb_koondymy"),
-            InlineKeyboardButton("🥟 Курзе ", callback_data="cb_koorze"))
-    markup.add(InlineKeyboardButton("🥟 Бораки ", callback_data="cb_boraki"),
-            InlineKeyboardButton("🥟 Равиоли", callback_data="cb_ravioli"))
+    markup.add(InlineKeyboardButton("Режим пьяницы", callback_data="drunkard"),
+            InlineKeyboardButton("Лунная гравитация", callback_data="gravity"),
+            InlineKeyboardButton("Быстрый бег", callback_data="fast run"))
+    markup.add(InlineKeyboardButton("Неуязвимость", callback_data="invulnerability"),
+            InlineKeyboardButton("Суперпрыжок", callback_data="super jump"))
     
     return markup
 
@@ -101,18 +100,16 @@ def callback_query(call):
         
 
 # Handle submenu callbacks
-@bot.callback_query_handler(func=lambda call: call.data in ["cb_Pelmeni", "cb_Vareniki", "cb_Hinkali", "cb_Manti", "cb_Buuz"])
+@bot.callback_query_handler(func=lambda call: call.data in ["Allguns", "BoomAttack", "BoomPatrons", "FirePatrons"])
 def submenu_callback_query(call):
-    if call.data == "cb_Pelmeni":
-            bot.send_photo(call.message.chat.id, open('img/pelmeni.jpg', 'rb'), text_pelmeni)
-    elif call.data == "cb_Vareniki":
-        bot.send_photo(call.message.chat.id, open('img/vareniki.jpg', 'rb'), text_vareniki)
-    elif call.data == "cb_Hinkali":
-        bot.send_photo(call.message.chat.id, open('img/Hinkali.jpg', 'rb'), text_hinkali)
-    elif call.data == "cb_Manti":
-        bot.send_photo(call.message.chat.id, open('img/Manti.jpg', 'rb'), text_mantu)
-    elif call.data == "cb_Buuz":
-        bot.send_photo(call.message.chat.id, open('img/Buzz.jpg', 'rb'), text_buuz)
+    if call.data == "Allguns":
+        bot.send_message(call.message.chat.id, gun_Allguns)
+    elif call.data == "BoomAttack":
+        bot.send_message(call.message.chat.id, gun_BoomAttack)
+    elif call.data == "BoomPatrons":
+        bot.send_message(call.message.chat.id, gun_BoomPatrons)
+    elif call.data == "FirePatrons":
+        bot.send_message(call.message.chat.id, gun_FirePatrons)
 
 @bot.callback_query_handler(func=lambda call: call.data in ["cb_szaosz","cb_gedza" , "cb_dimSams", "cb_momo", "cb_votons"])
 def submenu_callback_query(call):
@@ -156,10 +153,10 @@ def submenu_callback_query(call):
 
 # First menu action
 def first(message):
-    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_1())
+    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_Guns())
 
 def second(message):
-    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_2())
+    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_Cars())
 
 def third(message):
     bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_3())
