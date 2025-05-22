@@ -10,13 +10,13 @@ bot = telebot.TeleBot(Token)
 def gen_markup():
     markup = InlineKeyboardMarkup()
     markup.row_width = 3
-    markup.add(InlineKeyboardButton("1", callback_data="1"),
-            InlineKeyboardButton("2", callback_data="2"),
-            InlineKeyboardButton("3", callback_data="3"))
-    
-    markup.add(InlineKeyboardButton("4", callback_data="4"),
-            InlineKeyboardButton("5", callback_data="5"))
-    
+    markup.add(InlineKeyboardButton("оружие и патроны 🔫", callback_data="gun"),
+            InlineKeyboardButton("транспорт и перемещение 🚘", callback_data="cars"),
+            InlineKeyboardButton("персонажей 👦", callback_data="skins"))
+
+    markup.add(InlineKeyboardButton("погоду 🌧️", callback_data="weather"),
+            InlineKeyboardButton("другое 🛸", callback_data="other"))
+
     return markup
 
 
@@ -24,14 +24,12 @@ def gen_markup():
 def gen_markup_1():
     markup = InlineKeyboardMarkup()
     markup.row_width = 3
-    markup.add(InlineKeyboardButton("🥟 Пельмени", callback_data="cb_Pelmeni"),
-            InlineKeyboardButton("🥟 Вареники", callback_data="cb_Vareniki"),
-            InlineKeyboardButton("🥟 Хинкали", callback_data="cb_Hinkali"))
-    markup.add(InlineKeyboardButton("🥟 Манты", callback_data="cb_Manti"),
-            InlineKeyboardButton("🥟 Буузы", callback_data="cb_Buuz"))
+    markup.add(InlineKeyboardButton("Всё оружие", callback_data="Allguns"),
+            InlineKeyboardButton("Взрывные атаки ближнего боя", callback_data="BoomAttack"),)
+    markup.add(InlineKeyboardButton("Взрывные патроны", callback_data="BoomPatrons"),
+            InlineKeyboardButton("Поджигающие пули ", callback_data="FirePatrons"),)
     
     return markup
-
 
 def gen_markup_2():
 
@@ -69,7 +67,12 @@ def gen_markup_4():
     
     return markup
 
-
+def gen_markup_5():
+    markup = InlineKeyboardMarkup()
+    markup.row_width = 3
+    markup.add(InlineKeyboardButton("Понизить уровень розыска", callback_data="PoliceM"),
+               InlineKeyboardButton("Увеличить уровень розыска", callback_data="PoliceP"),)
+    markup.add(InlineKeyboardButton("Замедленное время", callback_data="SlowTime"),)
 
 
 @bot.message_handler(commands=['start'])
@@ -84,17 +87,18 @@ def info(message):
     
 
 
-@bot.callback_query_handler(func=lambda call: call.data in ["1", "2", "3", "4", "5"])
+@bot.callback_query_handler(func=lambda call: call.data in [])
 def callback_query(call):
-    if call.data == "1":
+    if call.data == "gun":
         first(call.message)
-    elif call.data == "2":
+    elif call.data == "cars":
         second(call.message)
-    elif call.data == "3":
+    elif call.data == "skins":
         third(call.message)
-    elif call.data == "4":
+    elif call.data == "weather":
         fourd(call.message)
-        
+    elif call.data == "other":
+        fiveth(call.message)
         
 
 # Handle submenu callbacks
@@ -162,5 +166,8 @@ def third(message):
     bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_3())
 def fourd(message):
     bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_4())
+def fiveth(message):
+    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_5())
 bot.infinity_polling()
+
 
