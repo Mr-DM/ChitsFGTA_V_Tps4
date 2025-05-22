@@ -32,14 +32,13 @@ def gen_markup_1():
     return markup
 
 def gen_markup_2():
-
     markup = InlineKeyboardMarkup()
     markup.row_width = 3
-    markup.add(InlineKeyboardButton("🥟 Цзяоцзы ", callback_data="cb_szaosz"),
-            InlineKeyboardButton("🥟 Гедза", callback_data="cb_gedza"),
-            InlineKeyboardButton("🥟 Дим-самы", callback_data="cb_dimSams"))
-    markup.add(InlineKeyboardButton("🥟 Момо", callback_data="cb_momo"),
-            InlineKeyboardButton("🥟Вонтоны ", callback_data="cb_votons"))
+    markup.add(InlineKeyboardButton("Вызов comet", callback_data="comet"),
+            InlineKeyboardButton("мотоцикл для бездорожья", callback_data="sanchez"),
+            InlineKeyboardButton("Спроткар", callback_data="Rapid_GT"))
+    markup.add(InlineKeyboardButton("спортивный мотоцикл", callback_data=" ПКJ-600"),
+            InlineKeyboardButton("маслкар", callback_data="Duke O’Death Car"))
     
     return markup
 
